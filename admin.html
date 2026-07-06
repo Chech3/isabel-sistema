@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isabel Nail Atelier - Panel de Administración</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
+    
+    <!-- Style Embed for Single File Convenience & Custom Dashboard Theme -->
+    <style>
+        :root {
+            --color-bg-base: #FAF6F0;       /* Warm ivory/beige */
+            --color-bg-card: #FFFFFF;
+            --color-primary: #B5838D;       /* Elegant Old Rose */
+            --color-primary-hover: #9E7682;
+            --color-primary-light: #F4ECE8;
+            --color-secondary: #E5D3C3;     /* Champagne */
+            --color-text-dark: #3D3434;     /* Charcoal */
+            --color-text-muted: #8D8080;    /* Rose gray */
+            --color-white: #FFFFFF;
+            --color-whatsapp: #25D366;
+            --color-error: #D96B6B;
+            --color-success: #67B380;
+            --color-pending: #F2A93B;
+            
+            --font-heading: 'Playfair Display', Georgia, serif;
+            --font-body: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+            
+            --shadow-sm: 0 2px 8px rgba(61, 52, 52, 0.05);
+            --shadow-md: 0 8px 24px rgba(61, 52, 52, 0.08);
+            --shadow-lg: 0 16px 40px rgba(61, 52, 52, 0.12);
+            
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+            --radius-full: 9999px;
+            
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--color-bg-base);
+            color: var(--color-text-dark);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header.navbar {
+            background-color: var(--color-white);
+            border-bottom: 1px solid rgba(229, 211, 195, 0.5);
+            padding: 15px 30px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .logo-accent {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+        }
+
+        .logo-sub {
+            font-size: 0.6rem;
+            letter-spacing: 3px;
+            color: var(--color-primary);
+            font-weight: 700;
+            margin-top: -2px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border-radius: var(--radius-full);
+            border: 1px solid transparent;
+            cursor: pointer;
+            transition: var(--transition-smooth);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            border-color: var(--color-secondary);
+            color: var(--color-text-dark);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--color-primary-light);
+            border-color: var(--color-primary);
+        }
+
+        .btn-primary {
+            background-color: var(--color-primary);
+            color: var(--color-white);
+        }
+
+        .btn-primary:hover {
+            background-color: var(--color-primary-hover);
+        }
+
+        .admin-container {
+            max-width: 1400px;
+            width: 100%;
+            margin: 40px auto;
+            padding: 0 30px;
+            flex-grow: 1;
+        }
+
+        /* Dashboard Welcome Header */
+        .admin-header {
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        .admin-title-area h1 {
+            font-size: 2.2rem;
+            margin-bottom: 5px;
+            color: var(--color-text-dark);
+        }
+
+        .admin-title-area p {
+            color: var(--color-text-muted);
+            font-size: 0.95rem;
+        }
+
+        /* Metrics Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .metric-card {
+            background-color: var(--color-white);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(229, 211, 195, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: var(--transition-smooth);
+        }
+
+        .metric-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .metric-info h3 {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .metric-value {
+            font-family: var(--font-heading);
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text-dark);
+        }
+
+        .metric-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: var(--radius-full);
+            background-color: var(--color-primary-light);
+            color: var(--color-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+        }
+
+        /* Controls Section */
+        .controls-card {
+            background-color: var(--color-white);
+            border-radius: var(--radius-md);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(229, 211, 195, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .controls-layout {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .search-wrapper {
+            position: relative;
+            flex-grow: 1;
+            max-width: 400px;
+            min-width: 250px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 16px 12px 40px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(229, 211, 195, 0.6);
+            font-size: 0.95rem;
+            outline: none;
+            transition: var(--transition-smooth);
+            background-color: var(--color-bg-base);
+        }
+
+        .search-input:focus {
+            border-color: var(--color-primary);
+            background-color: var(--color-white);
+            box-shadow: 0 0 0 3px rgba(181, 131, 141, 0.15);
+        }
+
+        .search-icon-svg {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--color-text-muted);
+            pointer-events: none;
+        }
+
+        .filter-groups {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+        }
+
+        .filter-select {
+            padding: 10px 16px;
+            border-radius: var(--radius-full);
+            border: 1px solid rgba(229, 211, 195, 0.6);
+            outline: none;
+            font-size: 0.9rem;
+            background-color: var(--color-white);
+            cursor: pointer;
+            transition: var(--transition-smooth);
+        }
+
+        .filter-select:focus {
+            border-color: var(--color-primary);
+        }
+
+        /* Bookings Section */
+        .bookings-card {
+            background-color: var(--color-white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid rgba(229, 211, 195, 0.3);
+            overflow: hidden;
+        }
+
+        .table-responsive {
+            overflow-x: auto;
+            width: 100%;
+        }
+
+        table.bookings-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.92rem;
+        }
+
+        th {
+            background-color: var(--color-bg-base);
+            padding: 16px 24px;
+            font-weight: 700;
+            color: var(--color-text-dark);
+            border-bottom: 1px solid rgba(229, 211, 195, 0.5);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 1px;
+        }
+
+        td {
+            padding: 18px 24px;
+            border-bottom: 1px solid rgba(229, 211, 195, 0.25);
+            vertical-align: middle;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        tr:hover td {
+            background-color: rgba(250, 246, 240, 0.4);
+        }
+
+        /* Table Details styling */
+        .client-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .client-name {
+            font-weight: 700;
+            color: var(--color-text-dark);
+            font-size: 0.95rem;
+        }
+
+        .client-phone {
+            color: var(--color-text-muted);
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        .service-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .service-name {
+            font-weight: 600;
+        }
+
+        .service-meta {
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+            margin-top: 2px;
+        }
+
+        .date-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .date-val {
+            font-weight: 600;
+        }
+
+        .time-val {
+            color: var(--color-primary);
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-top: 2px;
+        }
+
+        .notes-text {
+            max-width: 250px;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            cursor: pointer;
+        }
+
+        .notes-text:hover {
+            color: var(--color-text-dark);
+            text-decoration: underline;
+        }
+
+        /* Status Badge Styling */
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 12px;
+            border-radius: var(--radius-full);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .status-pending {
+            background-color: rgba(242, 169, 59, 0.12);
+            color: var(--color-pending);
+        }
+
+        .status-confirmed {
+            background-color: rgba(103, 179, 128, 0.12);
+            color: var(--color-success);
+        }
+
+        .status-cancelled {
+            background-color: rgba(217, 107, 107, 0.12);
+            color: var(--color-error);
+        }
+
+        /* Action Buttons */
+        .actions-cell {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .action-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: var(--radius-full);
+            border: 1px solid transparent;
+            background-color: var(--color-bg-base);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition-smooth);
+            color: var(--color-text-dark);
+        }
+
+        .action-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .btn-confirm-action:hover {
+            background-color: var(--color-success);
+            color: var(--color-white);
+            border-color: var(--color-success);
+        }
+
+        .btn-cancel-action:hover {
+            background-color: rgba(217, 107, 107, 0.15);
+            color: var(--color-error);
+            border-color: var(--color-error);
+        }
+
+        .btn-delete-action:hover {
+            background-color: var(--color-error);
+            color: var(--color-white);
+            border-color: var(--color-error);
+        }
+
+        .btn-whatsapp-action {
+            background-color: rgba(37, 211, 102, 0.1);
+            color: var(--color-whatsapp);
+            border-color: rgba(37, 211, 102, 0.2);
+            width: auto;
+            padding: 0 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            display: flex;
+            gap: 4px;
+        }
+
+        .btn-whatsapp-action:hover {
+            background-color: var(--color-whatsapp);
+            color: var(--color-white);
+            border-color: var(--color-whatsapp);
+        }
+
+        /* Empty State */
+        .empty-state {
+            padding: 60px 24px;
+            text-align: center;
+            color: var(--color-text-muted);
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            opacity: 0.6;
+        }
+
+        .empty-state h3 {
+            font-size: 1.3rem;
+            margin-bottom: 8px;
+            color: var(--color-text-dark);
+        }
+
+        /* Modal Details */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(61, 52, 52, 0.5);
+            backdrop-filter: blur(4px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-card {
+            background-color: var(--color-white);
+            border-radius: var(--radius-lg);
+            width: 90%;
+            max-width: 500px;
+            padding: 30px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(229, 211, 195, 0.5);
+            position: relative;
+            transform: translateY(20px);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-card {
+            transform: translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-muted);
+            transition: var(--transition-smooth);
+        }
+
+        .modal-close:hover {
+            color: var(--color-text-dark);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(229, 211, 195, 0.4);
+            padding-bottom: 10px;
+        }
+
+        .modal-field {
+            margin-bottom: 15px;
+        }
+
+        .modal-field label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .modal-field p {
+            font-size: 0.95rem;
+            color: var(--color-text-dark);
+            background-color: var(--color-bg-base);
+            padding: 10px 14px;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(229, 211, 195, 0.2);
+            word-break: break-word;
+        }
+
+        /* Footer styling */
+        footer.admin-footer {
+            background-color: var(--color-white);
+            border-top: 1px solid rgba(229, 211, 195, 0.5);
+            padding: 20px 30px;
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Responsive changes */
+        @media (max-width: 900px) {
+            .admin-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .controls-layout {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .search-wrapper {
+                max-width: 100%;
+            }
+            .filter-groups {
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navbar -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <a href="#" class="logo">
+                <span class="logo-accent">Isabel</span>
+                <span class="logo-sub">NAIL ATELIER</span>
+            </a>
+            <div class="nav-links">
+                <a href="/" class="btn btn-outline">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                    <span>Ir al Sitio</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dashboard Body -->
+    <main class="admin-container">
+        <!-- Admin Title Area -->
+        <div class="admin-header">
+            <div class="admin-title-area">
+                <h1>Panel de Control</h1>
+                <p>Gestiona las reservas y citas del Atelier</p>
+            </div>
+            <button class="btn btn-primary" onclick="loadReservations()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+                <span>Actualizar Datos</span>
+            </button>
+        </div>
+
+        <!-- Metrics Row -->
+        <section class="metrics-grid">
+            <!-- Metric 1: Total -->
+            <div class="metric-card">
+                <div class="metric-info">
+                    <h3>Total Citas</h3>
+                    <div class="metric-value" id="metric-total">0</div>
+                </div>
+                <div class="metric-icon">📅</div>
+            </div>
+            <!-- Metric 2: Pending -->
+            <div class="metric-card">
+                <div class="metric-info">
+                    <h3>Pendientes</h3>
+                    <div class="metric-value" id="metric-pending" style="color: var(--color-pending);">0</div>
+                </div>
+                <div class="metric-icon" style="background-color: rgba(242, 169, 59, 0.1); color: var(--color-pending);">⏳</div>
+            </div>
+            <!-- Metric 3: Confirmed -->
+            <div class="metric-card">
+                <div class="metric-info">
+                    <h3>Confirmadas</h3>
+                    <div class="metric-value" id="metric-confirmed" style="color: var(--color-success);">0</div>
+                </div>
+                <div class="metric-icon" style="background-color: rgba(103, 179, 128, 0.1); color: var(--color-success);">✓</div>
+            </div>
+            <!-- Metric 4: Earnings -->
+            <div class="metric-card">
+                <div class="metric-info">
+                    <h3>Ingresos Estimados</h3>
+                    <div class="metric-value" id="metric-earnings" style="color: var(--color-primary);">$0</div>
+                </div>
+                <div class="metric-icon">💵</div>
+            </div>
+        </section>
+
+        <!-- Controls Area -->
+        <section class="controls-card">
+            <div class="controls-layout">
+                <!-- Search Input -->
+                <div class="search-wrapper">
+                    <svg class="search-icon-svg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    <input type="text" id="search-input" class="search-input" placeholder="Buscar por cliente o teléfono..." oninput="filterBookings()">
+                </div>
+
+                <!-- Filter selects -->
+                <div class="filter-groups">
+                    <!-- Status Filter -->
+                    <div class="filter-group">
+                        <span class="filter-label">Estado:</span>
+                        <select id="filter-status" class="filter-select" onchange="filterBookings()">
+                            <option value="all">Todos</option>
+                            <option value="pending">Pendientes</option>
+                            <option value="confirmed">Confirmadas</option>
+                            <option value="cancelled">Canceladas</option>
+                        </select>
+                    </div>
+
+                    <!-- Date Filter -->
+                    <div class="filter-group">
+                        <span class="filter-label">Fecha:</span>
+                        <select id="filter-date" class="filter-select" onchange="filterBookings()">
+                            <option value="all">Todas las fechas</option>
+                            <option value="today">Hoy</option>
+                            <option value="tomorrow">Mañana</option>
+                            <option value="upcoming">Próximas</option>
+                            <option value="past">Pasadas</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bookings Table Section -->
+        <section class="bookings-card">
+            <div class="table-responsive">
+                <table class="bookings-table">
+                    <thead>
+                        <tr>
+                            <th>Cliente</th>
+                            <th>Servicio</th>
+                            <th>Fecha y Hora</th>
+                            <th>Notas</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookings-tbody">
+                        <!-- Loaded dynamically -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Empty state placeholder -->
+            <div id="empty-state-view" class="empty-state" style="display: none;">
+                <div class="empty-icon">📂</div>
+                <h3>No se encontraron reservas</h3>
+                <p>No hay citas que coincidan con la búsqueda o filtros actuales.</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal for Detailed Notes -->
+    <div class="modal" id="notes-modal">
+        <div class="modal-card">
+            <button class="modal-close" onclick="closeNotesModal()" aria-label="Cerrar modal">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </button>
+            <h2 class="modal-title">Detalle de la Cita</h2>
+            
+            <div class="modal-field">
+                <label>Cliente</label>
+                <p id="modal-client"></p>
+            </div>
+            <div class="modal-field">
+                <label>Teléfono</label>
+                <p id="modal-phone"></p>
+            </div>
+            <div class="modal-field">
+                <label>Servicio</label>
+                <p id="modal-service"></p>
+            </div>
+            <div class="modal-field">
+                <label>Fecha y Hora</label>
+                <p id="modal-datetime"></p>
+            </div>
+            <div class="modal-field">
+                <label>Notas del Cliente</label>
+                <p id="modal-notes" style="white-space: pre-wrap; font-style: italic; min-height: 80px;"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Footer -->
+    <footer class="admin-footer">
+        <p>&copy; 2026 Isabel Nail Atelier. Panel de Administración Privado.</p>
+    </footer>
+
+    <!-- Frontend Admin JS Logic -->
+    <script>
+        let allReservations = [];
+
+        // Load reservations from API on load
+        document.addEventListener("DOMContentLoaded", () => {
+            loadReservations();
+        });
+
+        function loadReservations() {
+            fetch('/api/reservations')
+                .then(res => {
+                    if (!res.ok) throw new Error('Error de red al cargar reservas.');
+                    return res.json();
+                })
+                .then(data => {
+                    allReservations = data;
+                    updateDashboard();
+                })
+                .catch(err => {
+                    console.error('Error:', err);
+                    alert('Error al conectar con la base de datos: ' + err.message);
+                });
+        }
+
+        // Calculate and populate stats & table
+        function updateDashboard() {
+            calculateMetrics();
+            filterBookings();
+        }
+
+        function calculateMetrics() {
+            const total = allReservations.length;
+            const pending = allReservations.filter(r => r.status === 'pending').length;
+            const confirmed = allReservations.filter(r => r.status === 'confirmed').length;
+            
+            // Calculate active earnings (pre-reserved + confirmed)
+            const activeReservations = allReservations.filter(r => r.status !== 'cancelled');
+            const earnings = activeReservations.reduce((sum, r) => sum + (r.service_price || 0), 0);
+            
+            document.getElementById("metric-total").textContent = total;
+            document.getElementById("metric-pending").textContent = pending;
+            document.getElementById("metric-confirmed").textContent = confirmed;
+            document.getElementById("metric-earnings").textContent = `$${earnings} USD`;
+        }
+
+        // Filters reservations array and renders the table
+        function filterBookings() {
+            const searchQuery = document.getElementById("search-input").value.toLowerCase().trim();
+            const statusFilter = document.getElementById("filter-status").value;
+            const dateFilter = document.getElementById("filter-date").value;
+            
+            const todayStr = getLocalDateStr(new Date());
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const tomorrowStr = getLocalDateStr(tomorrow);
+            
+            const filtered = allReservations.filter(res => {
+                // 1. Search Query
+                const matchesSearch = res.client_name.toLowerCase().includes(searchQuery) || 
+                                      res.client_phone.includes(searchQuery) ||
+                                      res.service_name.toLowerCase().includes(searchQuery);
+                                      
+                // 2. Status Filter
+                const matchesStatus = statusFilter === 'all' || res.status === statusFilter;
+                
+                // 3. Date Filter
+                let matchesDate = true;
+                if (dateFilter === 'today') {
+                    matchesDate = res.date === todayStr;
+                } else if (dateFilter === 'tomorrow') {
+                    matchesDate = res.date === tomorrowStr;
+                } else if (dateFilter === 'upcoming') {
+                    matchesDate = res.date >= todayStr && res.status !== 'cancelled';
+                } else if (dateFilter === 'past') {
+                    matchesDate = res.date < todayStr;
+                }
+                
+                return matchesSearch && matchesStatus && matchesDate;
+            });
+            
+            renderTable(filtered);
+        }
+
+        // Helper to format date in YYYY-MM-DD local format
+        function getLocalDateStr(date) {
+            const y = date.getFullYear();
+            const m = String(date.getMonth() + 1).padStart(2, '0');
+            const d = String(date.getDate()).padStart(2, '0');
+            return `${y}-${m}-${d}`;
+        }
+
+        // Render rows in the DOM
+        function renderTable(reservations) {
+            const tbody = document.getElementById("bookings-tbody");
+            const emptyState = document.getElementById("empty-state-view");
+            tbody.innerHTML = "";
+            
+            if (reservations.length === 0) {
+                emptyState.style.display = "block";
+                return;
+            }
+            
+            emptyState.style.display = "none";
+            
+            reservations.forEach(res => {
+                const tr = document.createElement("tr");
+                
+                // Client column
+                const clientCell = `
+                    <div class="client-info">
+                        <span class="client-name">${escapeHtml(res.client_name)}</span>
+                        <span class="client-phone">${escapeHtml(res.client_phone)}</span>
+                    </div>
+                `;
+                
+                // Service column
+                const serviceCell = `
+                    <div class="service-info">
+                        <span class="service-name">${escapeHtml(res.service_name)}</span>
+                        <span class="service-meta">$${res.service_price} USD • ${res.service_duration} min</span>
+                    </div>
+                `;
+                
+                // Date column
+                const formattedDate = formatDateES(res.date);
+                const dateCell = `
+                    <div class="date-info">
+                        <span class="date-val">${formattedDate}</span>
+                        <span class="time-val">${res.time} hs</span>
+                    </div>
+                `;
+                
+                // Notes column
+                const notesText = res.client_notes ? escapeHtml(res.client_notes) : 'Sin notas';
+                const notesClass = res.client_notes ? 'notes-text' : 'notes-text style="opacity: 0.4;"';
+                const notesCell = `<div class="${notesClass}" onclick="openNotesModal(${JSON.stringify(res).replace(/"/g, '&quot;')})">${notesText}</div>`;
+                
+                // Status column
+                const statusBadge = `
+                    <span class="status-badge status-${res.status}">
+                        ${res.status === 'pending' ? 'Pendiente' : res.status === 'confirmed' ? 'Confirmada' : 'Cancelada'}
+                    </span>
+                `;
+                
+                // Actions column
+                const chatMsg = encodeURIComponent(`Hola ${res.client_name}, te escribimos de Isabel Nail Atelier con respecto a tu cita del día ${formattedDate} a las ${res.time} hs.`);
+                const waLink = `https://wa.me/${res.client_phone.replace(/[^0-9]/g, '')}?text=${chatMsg}`;
+                
+                let actionButtons = `
+                    <div class="actions-cell">
+                        <a href="${waLink}" class="action-btn btn-whatsapp-action" target="_blank" title="Enviar mensaje de WhatsApp">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                            <span>Chat</span>
+                        </a>
+                `;
+                
+                if (res.status === 'pending') {
+                    actionButtons += `
+                        <button class="action-btn btn-confirm-action" onclick="updateStatus(${res.id}, 'confirmed')" title="Confirmar Cita">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </button>
+                        <button class="action-btn btn-cancel-action" onclick="updateStatus(${res.id}, 'cancelled')" title="Cancelar Cita">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
+                    `;
+                } else if (res.status === 'confirmed') {
+                    actionButtons += `
+                        <button class="action-btn btn-cancel-action" onclick="updateStatus(${res.id}, 'cancelled')" title="Cancelar Cita">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                        </button>
+                    `;
+                } else if (res.status === 'cancelled') {
+                    actionButtons += `
+                        <button class="action-btn btn-confirm-action" onclick="updateStatus(${res.id}, 'confirmed')" title="Re-confirmar Cita">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                        </button>
+                    `;
+                }
+                
+                actionButtons += `
+                        <button class="action-btn btn-delete-action" onclick="deleteReservation(${res.id})" title="Eliminar Registro">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
+                        </button>
+                    </div>
+                `;
+                
+                tr.innerHTML = `
+                    <td>${clientCell}</td>
+                    <td>${serviceCell}</td>
+                    <td>${dateCell}</td>
+                    <td>${notesCell}</td>
+                    <td>${statusBadge}</td>
+                    <td>${actionButtons}</td>
+                `;
+                
+                tbody.appendChild(tr);
+            });
+        }
+
+        // Date formatter e.g., "2026-06-23" -> "Martes, 23 de Jun"
+        function formatDateES(dateString) {
+            const [year, month, day] = dateString.split('-').map(Number);
+            const date = new Date(year, month - 1, day);
+            const options = { weekday: 'short', day: 'numeric', month: 'short' };
+            const formatted = date.toLocaleDateString('es-ES', options);
+            return formatted.charAt(0).toUpperCase() + formatted.slice(1);
+        }
+
+        // Update Reservation Status API Call
+        function updateStatus(id, status) {
+            const actionText = status === 'confirmed' ? 'confirmar' : 'cancelar';
+            if (!confirm(`¿Estás seguro de que deseas ${actionText} esta reserva?`)) return;
+            
+            fetch(`/api/reservations/${id}/status`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Error al actualizar el estado.');
+                return res.json();
+            })
+            .then(() => {
+                loadReservations();
+            })
+            .catch(err => {
+                console.error(err);
+                alert(err.message);
+            });
+        }
+
+        // Delete Reservation API Call
+        function deleteReservation(id) {
+            if (!confirm('¿Estás seguro de que deseas eliminar permanentemente este registro de reserva? Esta acción no se puede deshacer.')) return;
+            
+            fetch(`/api/reservations/${id}`, {
+                method: 'DELETE'
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Error al eliminar la reserva.');
+                return res.json();
+            })
+            .then(() => {
+                loadReservations();
+            })
+            .catch(err => {
+                console.error(err);
+                alert(err.message);
+            });
+        }
+
+        // Notes Modal Handlers
+        function openNotesModal(res) {
+            const modal = document.getElementById("notes-modal");
+            document.getElementById("modal-client").textContent = res.client_name;
+            document.getElementById("modal-phone").textContent = res.client_phone;
+            document.getElementById("modal-service").textContent = `${res.service_name} ($${res.service_price} USD)`;
+            document.getElementById("modal-datetime").textContent = `${formatDateES(res.date)} a las ${res.time} hs`;
+            document.getElementById("modal-notes").textContent = res.client_notes || 'El cliente no dejó notas adicionales para esta cita.';
+            
+            modal.classList.add("active");
+        }
+
+        function closeNotesModal() {
+            document.getElementById("notes-modal").classList.remove("active");
+        }
+
+        // Close modal when clicking outside card
+        window.onclick = function(event) {
+            const modal = document.getElementById("notes-modal");
+            if (event.target === modal) {
+                closeNotesModal();
+            }
+        }
+
+        // Simple HTML Escaper helper
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
