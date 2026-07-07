@@ -5,11 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "node server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "npm rebuild sqlite3 --build-from-source"
   },
   "engines": {
-    "node": ">=22.0.0"
+    "node": "22.18.0"
   },
   "repository": {
     "type": "git",
