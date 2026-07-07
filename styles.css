@@ -1519,11 +1519,73 @@ button, input, select, textarea {
         padding: 24px 16px;
     }
 
+    /* Step 1 Cards Mobile Optimization */
+    .service-select-card {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+        gap: 12px;
+    }
+
+    .service-card-icon {
+        margin-right: 0;
+        margin-bottom: 4px;
+        width: 46px;
+        height: 46px;
+    }
+
+    .service-card-details {
+        padding-right: 0;
+        width: 100%;
+    }
+
+    .service-card-details h4 {
+        font-size: 1.1rem;
+    }
+
+    .service-card-details p {
+        font-size: 0.85rem;
+        line-height: 1.4;
+    }
+
+    .service-card-meta {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        min-width: auto;
+        border-top: 1px dashed rgba(229, 211, 195, 0.6);
+        padding-top: 12px;
+        margin-top: 4px;
+    }
+
+    .service-select-indicator {
+        top: 20px;
+        right: 20px;
+    }
+
+    /* Step 2 Calendar & Time Slots Mobile Optimization */
+    .calendar-wrapper {
+        padding: 16px 12px;
+    }
+
+    .time-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+    }
+
+    .time-slot-btn {
+        padding: 12px 0;
+        font-size: 0.9rem;
+    }
+
+    /* Form rows */
     .form-row {
         grid-template-columns: 1fr;
         gap: 20px;
     }
 
+    /* Summary Ticket */
     .summary-ticket {
         border-radius: var(--radius-md);
     }
@@ -1540,12 +1602,17 @@ button, input, select, textarea {
         font-size: 1.5rem;
     }
 
+    /* Progress Tracker Mobile Optimization */
     .progress-tracker {
         margin-bottom: 30px;
     }
     
     .step-label {
         font-size: 0.7rem;
+        white-space: normal;
+        max-width: 70px;
+        text-align: center;
+        line-height: 1.25;
     }
 
     .step-number {
@@ -1556,6 +1623,19 @@ button, input, select, textarea {
 
     .progress-bar {
         top: 16px;
+    }
+
+    /* Step Navigation Buttons Mobile Optimization */
+    .step-footer {
+        flex-direction: column-reverse;
+        gap: 12px;
+        width: 100%;
+        margin-top: 30px;
+        padding-top: 20px;
+    }
+
+    .step-footer .btn {
+        width: 100%;
     }
     
     .footer-info {
